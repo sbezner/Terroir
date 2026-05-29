@@ -141,71 +141,25 @@ export default function SvgMap({ onSelectMicro, onShapeHighlight, highlightedMic
           )
         })}
 
-        {/* Pins + popups — one popup per region, pins at every sub-shape centroid */}
+        {/* ── Pass 1: all pin bodies (no popup) ──────────────────────
+            Rendering pins before the popup layer means the popup
+            always paints on top of every other pin.              */}
         {microRegionPaths.filter(r => REGION_PINS[r.id]).map(r => {
           const isHov      = hoveredId === r.id
           const isSelected =
             highlightedMicroId === r.id ||
             (highlightedMegaregionId && MICRO_TO_MEGA[r.id] === highlightedMegaregionId)
-          const c          = COLORS[r.id]
-          const pin        = isSelected ? '#c8880e' : (c?.pin ?? '#7a6a50')
-          const accentColor = '#c8880e'
-          const name       = MICRO_NAME[r.id] || r.id
-          const displayName = name.length > 26 ? name.slice(0, 24) + '…' : name
-          const pins       = REGION_PINS[r.id]    // array of {cx,cy,area}
-
-          // Popup anchored on the largest (primary) sub-shape
-          const primary = pins.reduce((a, b) => (b.area ?? 0) > (a.area ?? 0) ? b : a, pins[0])
-          const tx = primary.cx, ty = primary.cy
-          const pinTop  = ty - R * 2.7
-          const popTop  = pinTop - GAP - PH
-          const popLeft = tx - PW / 2
-          const btnY = popTop + PH * 0.62
-          const btnH = PH * 0.32
-          const btnX = popLeft + PW * 0.12
-          const btnW = PW * 0.76
+          const c   = COLORS[r.id]
+          const pin = isSelected ? '#c8880e' : (c?.pin ?? '#7a6a50')
+          const pins = REGION_PINS[r.id]
 
           return (
             <g key={r.id}
               onMouseEnter={() => setHoveredId(r.id)}
               onMouseLeave={() => setHoveredId(null)}
-              // Mobile: tap navigates directly (no hover popup on touch)
               onTouchEnd={e => { e.preventDefault(); onSelectMicro(r.id) }}
               style={{ cursor:'pointer' }}
             >
-              {/* Popup on primary pin — desktop hover only */}
-              {isHov && (
-                <g filter="url(#pp)"
-                  onMouseEnter={() => setHoveredId(r.id)}
-                  onMouseLeave={() => setHoveredId(null)}>
-                  <rect x={popLeft} y={popTop} width={PW} height={PH} rx={PR} fill="white"/>
-                  <rect x={popLeft} y={popTop} width={PW} height={3/zoomScale} rx={PR} fill={accentColor}/>
-                  <rect x={tx - PW/3} y={pinTop - GAP} width={PW/1.5} height={GAP*1.5}
-                    fill="transparent" stroke="none"/>
-                  <polygon
-                    points={`${tx-ARROW},${popTop+PH} ${tx+ARROW},${popTop+PH} ${tx},${pinTop}`}
-                    fill="white"/>
-                  <text x={tx} y={popTop + PH*0.35}
-                    textAnchor="middle" dominantBaseline="middle"
-                    fontSize={FS} fontFamily="Georgia,serif" fontWeight="600"
-                    fill="#1a1208" style={{ userSelect:'none', pointerEvents:'none' }}>
-                    {displayName}
-                  </text>
-                  <g onClick={e => { e.stopPropagation(); onSelectMicro(r.id) }}
-                    style={{ cursor:'pointer' }}>
-                    <rect x={btnX} y={btnY} width={btnW} height={btnH}
-                      rx={btnH/2} fill={accentColor}/>
-                    <text x={tx} y={btnY + btnH/2}
-                      textAnchor="middle" dominantBaseline="middle"
-                      fontSize={FSS} fontFamily="system-ui,sans-serif" fontWeight="600"
-                      fill="white" style={{ userSelect:'none', pointerEvents:'none' }}>
-                      View Region →
-                    </text>
-                  </g>
-                </g>
-              )}
-
-              {/* One pin per sub-shape */}
               {pins.map((pt, pi) => (
                 <g key={pi} transform={`translate(${pt.cx},${pt.cy})`}
                   filter={isHov ? 'url(#ph)' : 'url(#ps)'}>
@@ -218,6 +172,59 @@ export default function SvgMap({ onSelectMicro, onShapeHighlight, highlightedMic
             </g>
           )
         })}
+
+        {/* ── Pass 2: active popup — rendered last, always on top ── */}
+        {(() => {
+          if (!hoveredId) return null
+          const r = microRegionPaths.find(p => p.id === hoveredId)
+          if (!r || !REGION_PINS[r.id]) return null
+
+          const accentColor = '#c8880e'
+          const name        = MICRO_NAME[r.id] || r.id
+          const displayName = name.length > 26 ? name.slice(0, 24) + '…' : name
+          const pins        = REGION_PINS[r.id]
+          const primary     = pins.reduce((a, b) => (b.area ?? 0) > (a.area ?? 0) ? b : a, pins[0])
+          const tx = primary.cx, ty = primary.cy
+          const pinTop  = ty - R * 2.7
+          const popTop  = pinTop - GAP - PH
+          const popLeft = tx - PW / 2
+          const btnY = popTop + PH * 0.62
+          const btnH = PH * 0.32
+          const btnX = popLeft + PW * 0.12
+          const btnW = PW * 0.76
+
+          return (
+            <g filter="url(#pp)"
+              onMouseEnter={() => setHoveredId(hoveredId)}
+              onMouseLeave={() => setHoveredId(null)}>
+              <rect x={popLeft} y={popTop} width={PW} height={PH} rx={PR} fill="white"/>
+              <rect x={popLeft} y={popTop} width={PW} height={3/zoomScale} rx={PR} fill={accentColor}/>
+              {/* Invisible bridge — prevents flicker as mouse travels pin→popup */}
+              <rect x={tx - PW/3} y={pinTop - GAP} width={PW/1.5} height={GAP*1.5}
+                fill="transparent" stroke="none"/>
+              <polygon
+                points={`${tx-ARROW},${popTop+PH} ${tx+ARROW},${popTop+PH} ${tx},${pinTop}`}
+                fill="white"/>
+              <text x={tx} y={popTop + PH*0.35}
+                textAnchor="middle" dominantBaseline="middle"
+                fontSize={FS} fontFamily="Georgia,serif" fontWeight="600"
+                fill="#1a1208" style={{ userSelect:'none', pointerEvents:'none' }}>
+                {displayName}
+              </text>
+              <g onClick={e => { e.stopPropagation(); onSelectMicro(r.id) }}
+                style={{ cursor:'pointer' }}>
+                <rect x={btnX} y={btnY} width={btnW} height={btnH}
+                  rx={btnH/2} fill={accentColor}/>
+                <text x={tx} y={btnY + btnH/2}
+                  textAnchor="middle" dominantBaseline="middle"
+                  fontSize={FSS} fontFamily="system-ui,sans-serif" fontWeight="600"
+                  fill="white" style={{ userSelect:'none', pointerEvents:'none' }}>
+                  View Region →
+                </text>
+              </g>
+            </g>
+          )
+        })()}
       </svg>
     </div>
   )
