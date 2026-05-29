@@ -9,7 +9,29 @@ export const southwest = [
     deviation: "New Mexico cuisine's singular axis is the chile question — red or green — and neither answer is wrong because they are entirely different flavor objects made from the same pod at different points of ripeness. Red chile sauce is earthy, slow, and faintly sweet from the dried Hatch or Chimayó pod; green chile sauce is bright, grassy, and vegetal with a heat that arrives fast and fades. Posole — dried hominy simmered with pork or lamb for hours — is the foundational meal, never a side, and the broth is considered the point. Sopapillas arrive as a bread course, deep-fried from a lard dough, and are eaten with honey; their presence at a savory meal confuses visitors who cannot locate them in any familiar category.",
     heirloomIngredients: ["Chimayó dried red chile", "Hatch green chile", "New Mexico blue corn", "dried posole hominy", "Churro lamb"],
     iconicDish: "Red chile posole with Churro lamb and blue corn tortillas",
-    substitutionRule: "Substitute Chimayó dried red chile with ancho chile plus a pinch of cayenne (5:1 ratio) to approximate the earthy-fruity depth without the cultivar-specific terroir; replace dried posole hominy with canned hominy rinsed and added in the final 30 minutes of cooking."
+    substitutionRule: "Substitute Chimayó dried red chile with ancho chile plus a pinch of cayenne (5:1 ratio) to approximate the earthy-fruity depth without the cultivar-specific terroir; replace dried posole hominy with canned hominy rinsed and added in the final 30 minutes of cooking.",
+    additionalDishes: [
+      {
+        name: "Chimayó Red Chile Enchiladas",
+        prep: "Corn tortillas are briefly passed through hot lard, then stacked flat (not rolled) in three layers with a coarse-ground dried Chimayó red chile sauce made from reconstituted pods simmered with garlic, Mexican oregano, and lard-rendered roux. Each layer receives shredded Chihuahuan cheese and raw white onion; the stack is finished in a hot oven until the sauce darkens at the edges and the cheese barely melts into the sauce rather than bubbling.",
+        authenticityMarker: "The flat-stacked preparation — as opposed to the rolled California style — is specific to New Mexico and reflects the Pueblo preference for layered rather than wrapped forms. Chimayó red chile, grown in the Chimayó valley of the Sangre de Cristo foothills since the eighteenth century, produces a sauce of raisin-and-earth depth that commercially grown dried chiles do not replicate."
+      },
+      {
+        name: "Pueblo Corn Stew (Homi'tazhi)",
+        prep: "Dried blue corn hominy is soaked overnight, then simmered for several hours with bone-in lamb ribs, dried oregano, and whole dried chile pods until the hominy blooms into tender, starchy nuggets and the broth turns silky with dissolved corn starch and rendered lamb fat. The stew is finished with no thickeners — the body comes entirely from the hominy — and served in large ceramic bowls at a temperature just below scalding.",
+        authenticityMarker: "This preparation descends directly from pre-contact Pueblo corn cookery adapted after the Spanish introduction of sheep. The technique of simmering hominy with bone-in meat until mutual enrichment occurs — neither ingredient dominant — is a Pueblo cooking logic documented in Spanish colonial records from the Rio Grande villages as early as the 1620s."
+      },
+      {
+        name: "Sopapillas with Honey",
+        prep: "A dough of white flour, baking powder, salt, and warm water is mixed until just cohesive, rested for twenty minutes, then rolled thin and cut into rough rectangles. Each piece is dropped into hot lard at around 375°F, where it puffs immediately into a hollow pillow; it is flipped once and removed when golden. Served immediately alongside savory meals and eaten by tearing a corner and drizzling wild honey into the hollow interior.",
+        authenticityMarker: "New Mexico sopapillas are a lard-fried bread descended from Spanish colonial cooking in the Rio Grande valley, distinct from the flat Texan variation. Their role as a bread course served alongside red or green chile plates — simultaneously dessert-adjacent and bread — is unique to the New Mexico table and documented in Santa Fe as early as the mid-nineteenth century."
+      },
+      {
+        name: "Green Chile Stew with Pork",
+        prep: "Cubed pork shoulder is browned in rendered lard until deeply caramelized, then simmered with rough-cut potatoes, roasted and peeled Hatch green chiles, garlic, and just enough water to cover. The stew cooks uncovered at a low boil for ninety minutes until the pork is fork-tender and the broth reduces to a thickened, intensely green-flavored liquid with visible chile flecks. Served with warm flour tortillas and no other accompaniment.",
+        authenticityMarker: "Green chile stew is the working-meal counterpart to posole in New Mexico households — made when fresh or frozen Hatch green chiles are available and pork shoulder is in the freezer. The dish is tied to the fall roasting season when bushels of Hatch chiles are processed and frozen, and its simplicity reflects the farmworker and ranching families of the middle Rio Grande corridor who developed it."
+      }
+    ]
   },
   {
     id: "southwest-arizona-sonoran-desert",
@@ -21,7 +43,29 @@ export const southwest = [
     deviation: "The Sonoran flour tortilla is a distinct artifact — paper-thin, lard-enriched, and cooked on a dry comal until barely charred at the edges, with a suppleness that mass-produced versions cannot achieve and that locals assess with visible disappointment when it is absent. The chimichanga — a burrito deep-fried in lard — is asserted by Tucson as its own invention and treated as a regional birthright rather than a novelty. Saguaro cactus syrup, made from the fermented fruit of the giant saguaro, has a flavor of overripe fig with a fermented tang and no adequate substitute; it is used in marinades and sauces where sweetness and funk must coexist.",
     heirloomIngredients: ["Tohono O'odham tepary beans", "saguaro cactus syrup", "Sonoran wheat (white whole wheat flour)", "carne asada beef skirt", "nopalito pads"],
     iconicDish: "Chimichanga with tepary bean mash, carne asada, and saguaro syrup-spiked salsa",
-    substitutionRule: "Substitute tepary beans with navy beans or small white beans, which approximate the nutty, dense texture though lack the desert-mineral finish; replace saguaro syrup with a blend of pomegranate molasses and a small amount of tamarind paste (3:1) to capture the sweet-sour-fermented profile."
+    substitutionRule: "Substitute tepary beans with navy beans or small white beans, which approximate the nutty, dense texture though lack the desert-mineral finish; replace saguaro syrup with a blend of pomegranate molasses and a small amount of tamarind paste (3:1) to capture the sweet-sour-fermented profile.",
+    additionalDishes: [
+      {
+        name: "Tohono O'odham Tepary Bean and Cholla Bud Stew",
+        prep: "Dried white tepary beans are soaked overnight and simmered for two to three hours until completely tender, their dense starchy flesh resisting disintegration in a way pintos do not. Harvested and despiked young cholla cactus buds — traditionally gathered in spring and dried — are rehydrated and added to the beans along with dried red chile, wild onion, and water. The stew cooks down until thick and is eaten warm, often the only dish at a meal.",
+        authenticityMarker: "Tepary beans and cholla buds are both O'odham heritage ingredients cultivated and harvested on Tohono O'odham Nation lands in the Sonoran Desert for thousands of years. This combination represents the pre-contact desert food system at its most complete — both ingredients are drought-adapted, high-protein, and nutritionally dense, developed precisely for this hyperarid environment."
+      },
+      {
+        name: "Carne Asada Tacos on Sonoran Flour Tortillas",
+        prep: "Beef skirt steak is marinated in citrus juice, garlic, salt, and dried chile, then grilled over very high mesquite charcoal heat for three to four minutes per side until charred at the edges and pink at the center. The meat is rested briefly, then chopped rather than sliced into rough half-inch pieces and loaded onto a fresh Sonoran flour tortilla — paper-thin, lard-enriched, cooked on a dry comal — with only fresh pico de gallo and lime.",
+        authenticityMarker: "Mesquite wood grilling of carne asada is the foundational outdoor cooking practice of the Arizona-Sonora borderlands, the mesquite being a native desert tree whose dense, fragrant wood imparts a specific smoke character that charcoal briquettes do not replicate. The Sonoran flour tortilla — a distinct artifact from the wheat-growing tradition of the Sonora River valley — is the only correct wrapper."
+      },
+      {
+        name: "Saguaro Fruit Syrup Pudding (Ha:l)",
+        prep: "Ripe saguaro cactus fruits harvested at the peak of summer monsoon season are boiled down with water until a thick, dark-red syrup forms; this syrup is the primary sweetener for the Tohono O'odham. A simple pudding is made by cooking the syrup with fine-ground corn meal, stirring constantly over low heat until it thickens to a dense, spoonable consistency with a flavor of overripe fig, honey, and fermented fruit. It is eaten warm or cooled to room temperature.",
+        authenticityMarker: "The saguaro harvest — called the Tohono O'odham new year — is a sacred ceremony marking the beginning of the monsoon season, and saguaro syrup is the oldest and most culturally significant sweetener in the Sonoran Desert food tradition. The fermented syrup is also used ceremonially in the rain-calling Nawait ceremony, making this pudding both a food and a ritual object."
+      },
+      {
+        name: "Cheese Crisp (Tucson-Style)",
+        prep: "A single large paper-thin Sonoran flour tortilla is placed on a dry comal or large cast-iron griddle over medium-high heat. A generous amount of shredded Colby or mild cheddar cheese is scattered evenly across the entire surface; the tortilla stays flat and is never folded. It is cooked until the underside crisps and the cheese melts and forms a continuous molten layer, then slid whole onto a plate and eaten immediately, torn into rough quarters, often with a side of green chile.",
+        authenticityMarker: "The Tucson cheese crisp is distinct from a quesadilla in both construction and intent: it is a flat, open-faced preparation that showcases the Sonoran flour tortilla's unique thinness and depends on the tortilla crisping directly on dry heat. It is documented in Tucson Mexican American households from at least the 1940s and is considered by Sonoran food historians to predate the quesadilla's commercialization in this region."
+      }
+    ]
   },
   {
     id: "southwest-navajo-nation-four-corners",
@@ -33,7 +77,29 @@ export const southwest = [
     deviation: "Mutton stew — bone-in sheep simmered with corn, potatoes, and dried chile — is the Navajo meal against which all others are measured, eaten at ceremonies, funerals, and rodeos with equal reverence. Kneel-down bread, made from fresh green corn scraped and ground into a wet dough then wrapped in corn husks and baked in coals, is a seasonal preparation that has no exact equivalent in any other tradition: the result is simultaneously a dumpling, a pudding, and a bread. Fry bread is present and beloved but contested — Navajo food scholars often frame it as a symbol of forced assimilation alongside its cultural centrality, a complexity the dish carries without resolution.",
     heirloomIngredients: ["Diné heirloom blue and white corn", "Canyon de Chelly peaches", "bone-in mutton shoulder", "dried Navajo red chile", "wild sumac berries"],
     iconicDish: "Mutton stew with Diné corn hominy, dried red chile, and kneel-down bread",
-    substitutionRule: "Substitute bone-in mutton with bone-in lamb shoulder, which shares the lanolin-rich fat character though with milder intensity; replace wild sumac with ground sumac spice (available at Middle Eastern grocers) used sparingly as a finish for its sour, resinous note."
+    substitutionRule: "Substitute bone-in mutton with bone-in lamb shoulder, which shares the lanolin-rich fat character though with milder intensity; replace wild sumac with ground sumac spice (available at Middle Eastern grocers) used sparingly as a finish for its sour, resinous note.",
+    additionalDishes: [
+      {
+        name: "Kneel-Down Bread (Náneeskaadi)",
+        prep: "Fresh green corn is harvested at the milk stage and the kernels are scraped from the cob, then ground on a stone metate to a coarse, wet dough. The dough is seasoned with a small amount of wood ash for alkalinity, then wrapped tightly in fresh corn husks and buried directly in the coals of a wood fire. The packets cook for one to two hours in the residual heat of the coals, producing a dense, slightly sweet corn pudding-bread with a faintly smoky outer husk.",
+        authenticityMarker: "Kneel-down bread is a Diné preparation with no analog in any other tradition — its name describes the kneeling posture required to grind corn on a low stone metate. It is prepared only when fresh green corn is available in late summer, and its presence at a ceremony or gathering is a marker of the family's agricultural continuity with pre-contact Diné corn farming."
+      },
+      {
+        name: "Diné Blue Corn Mush with Juniper Ash",
+        prep: "Diné heirloom blue corn is ground to a fine meal and mixed with water treated with burned juniper ash — the ash being stirred into water, settled, and the clear alkaline liquid drawn off. This nixta-like process turns the mush a distinctive blue-gray color. The mush is cooked over low heat with constant stirring until thick and smooth, served warm in a bowl with a small amount of salt and, when available, rendered mutton fat stirred through.",
+        authenticityMarker: "Juniper ash treatment of corn is a Diné technique that predates Spanish contact and functions similarly to nixtamalization, unlocking niacin and deepening the corn's color. The use of Rocky Mountain juniper ash specifically — gathered by burning the branches of Juniperus scopulorum found throughout the Navajo Nation — is a geographically specific practice that identifies this preparation as distinctly Diné rather than generically Southwestern."
+      },
+      {
+        name: "Canyon de Chelly Peach Crisp",
+        prep: "Peaches from the orchards planted in Canyon de Chelly — descendants of trees introduced by Spanish missionaries in the seventeenth century and replanted after the Long Walk — are sliced thick and layered in a Dutch oven with wild sumac berries for tartness and a small amount of sugar. A crumble of ground blue corn, wheat flour, lard, and piñon nuts is pressed over the top and the Dutch oven is placed over coals until the fruit softens and bubbles and the topping crisps to a sandy, nutty crust.",
+        authenticityMarker: "The Canyon de Chelly peach orchards are a living historical document — they survived Kit Carson's 1864 destruction campaign partly because some trees were hidden deep in the canyon tributaries. The peaches grown in the canyon's sheltered alluvial microclimate have a documented heritage of over three centuries and are central to Diné agricultural identity in a way no other tree fruit is."
+      },
+      {
+        name: "Fry Bread Taco (Navajo Taco)",
+        prep: "White flour, baking powder, salt, and warm water are mixed to a soft dough, portioned into palm-sized rounds, and stretched thin by hand before being dropped into hot lard in a cast-iron skillet. The bread puffs and blisters on both sides in under three minutes, producing a chewy, airy, lard-enriched platform. It is immediately topped with seasoned ground beef or shredded mutton, pinto beans, shredded iceberg lettuce, tomato, and shredded cheddar — the assembly reflecting both the commodity ration ingredients and the contemporary Navajo fair and rodeo food culture.",
+        authenticityMarker: "The Navajo taco is inseparable from the Indian rodeo and fair circuit of the Four Corners region, where it is served from trailers and booths at gatherings from Window Rock to Shiprock. Its ingredients — commodity flour, lard, canned beans — are an honest record of the federal ration system imposed post-Long Walk, and its cultural centrality coexists with and does not erase that history."
+      }
+    ]
   },
   {
     id: "southwest-colorado-plateau",
@@ -45,7 +111,29 @@ export const southwest = [
     deviation: "The Dutch oven — a heavy cast-iron pot buried in coals — is not a nostalgic artifact on the Colorado Plateau but an active cooking technology used at family gatherings and Dutch oven cook-offs that are a regional competitive tradition. Peach cobbler baked in a camp Dutch oven over juniper coals tastes materially different from any kitchen version: the ash and smoke permeate the crust while the fruit caramelizes against the iron bottom. Pinto beans cooked overnight in a cast-iron vessel with salt pork and onion are the starch at every serious gathering. The Mormon food storage tradition — a year's supply of wheat, honey, and dried goods — means the pantry is designed around shelf-stable combinations that produce full meals without fresh ingredients.",
     heirloomIngredients: ["Capitol Reef heritage peaches", "Utah pinto beans", "juniper berry (dried)", "salt pork", "hard white wheat berries"],
     iconicDish: "Dutch oven peach cobbler with juniper-scented biscuit crust",
-    substitutionRule: "Substitute Capitol Reef peaches with any freestone peach at peak ripeness; replace juniper berries with a combination of one dried bay leaf and a small sprig of rosemary steeped in the cobbler liquid for 10 minutes then removed, approximating the resinous piney note without the astringency."
+    substitutionRule: "Substitute Capitol Reef peaches with any freestone peach at peak ripeness; replace juniper berries with a combination of one dried bay leaf and a small sprig of rosemary steeped in the cobbler liquid for 10 minutes then removed, approximating the resinous piney note without the astringency.",
+    additionalDishes: [
+      {
+        name: "Dutch Oven Pinto Beans with Salt Pork",
+        prep: "Dried pinto beans are soaked overnight, drained, and layered in a cast-iron Dutch oven with thick-cut salt pork, a whole onion halved, dried red chile pods, and enough water to cover by three inches. The Dutch oven is buried in a bed of hardwood or juniper coals with additional coals mounded on the lid and left to cook for six to eight hours — or overnight — until the beans are creamy and the salt pork has dissolved into the broth. Served in the Dutch oven with no thickening.",
+        authenticityMarker: "This preparation is the foundational meal of the Mormon pioneer table on the Colorado Plateau, where Dutch oven cooking over coals was the primary method for families without reliable fuel wood — juniper being the dominant available species. The overnight coal-burial method is documented in pioneer diaries from the 1880s Escalante and Moab settlements and persists as the correct method at Colorado Plateau Dutch oven cook-offs."
+      },
+      {
+        name: "Capitol Reef Peach Butter",
+        prep: "Freestone peaches from the heritage orchards of Capitol Reef — planted by Mormon homesteaders in Fruita in the 1880s — are peeled, pitted, and cooked down in a heavy kettle without added water, the fruit's own juice providing the liquid. The mash is stirred continuously over medium heat for one to two hours until it reduces to a dense, dark, intensely concentrated paste with a caramel depth that fresh peaches do not possess. It is seasoned with a bare amount of sugar and cinnamon and canned in glass jars.",
+        authenticityMarker: "Fruit butters are the preservation technology of the Mormon pioneer pantry, where the intense UV and altitude of the Colorado Plateau produced stone fruit of exceptional sugar content unsuited to the humidity-reliant preservation methods of the American Midwest. The Capitol Reef orchards in Fruita, now administered by the National Park Service, are the most historically intact Mormon pioneer fruit orchard in the region."
+      },
+      {
+        name: "Whole Wheat Honey Bread",
+        prep: "Hard white wheat berries grown in the high Utah valleys are stone-milled to a coarse whole-wheat flour, combined with local wildflower honey, salt, lard, warm water, and yeast, and kneaded to a dense, slightly tacky dough. The dough rises slowly in a cool room — the altitude and cold air extending the fermentation — then is shaped into oval loaves baked in cast-iron pans until the crust is mahogany-dark and the crumb is moist and tight. Eaten in thick slices with butter and more honey.",
+        authenticityMarker: "Whole wheat bread sweetened with honey reflects the Mormon food storage doctrine that requires households to maintain a year's supply of basic foods — hard wheat and honey are both on the canonical list because of their near-indefinite shelf life. The use of locally milled hard white wheat, a variety developed specifically for the high-altitude, short-season Utah valleys, is a regional specificity within the broader Mormon tradition."
+      },
+      {
+        name: "Venison Jerky with Juniper Salt",
+        prep: "Deer hindquarter is trimmed of all fat and sliced paper-thin against the grain on a partially frozen roast. The slices are rubbed with a cure of salt, dried juniper berries ground to a coarse powder, brown sugar, black pepper, and dried red chile flakes, then draped over wooden racks or wire and dried in the open air of the canyon country — the low humidity and continuous wind of the Colorado Plateau functioning as the drying mechanism over twenty-four to forty-eight hours. Finished in a low oven if needed to achieve shelf stability.",
+        authenticityMarker: "Air-dried venison jerky is one of the oldest preserved foods on the Colorado Plateau, practiced by Ancestral Puebloans whose cliff dwellings on the canyon walls created natural cold-storage environments. The use of juniper berry as a cure ingredient connects the Mormon pioneer adaptation to the indigenous preservation practice that preceded it in the same landscape by centuries."
+      }
+    ]
   },
   {
     id: "southwest-hatch-valley",
@@ -57,7 +145,29 @@ export const southwest = [
     deviation: "The correct use of a Hatch green chile roast is not as a condiment but as a vegetable in its own right — peeled, seeded chiles are eaten in quantity as a side dish, not a garnish. Green chile cheeseburgers are the region's secular sacrament: a smash patty or thick-cut beef burger blanketed with fire-roasted whole Hatch green chiles and a melted white cheese, served on a commercial bun without apology, is considered more representative of local identity than any refined preparation. Freezing roasted chiles is the primary preservation method, and households measure their social standing partly by the depth of their Hatch chile freezer stock going into winter.",
     heirloomIngredients: ["Hatch Big Jim green chile (fire-roasted)", "Hatch red chile ristra (dried)", "New Mexico white cheddar or Chihuahuan asadero", "beef chuck patty"],
     iconicDish: "Hatch green chile cheeseburger with fire-roasted whole chiles and asadero",
-    substitutionRule: "Substitute fresh Hatch green chile with roasted and peeled Anaheim peppers plus one roasted poblano per four Anaheims to add depth; replace asadero with mild provolone or low-moisture mozzarella rather than American cheese to preserve the clean dairy baseline."
+    substitutionRule: "Substitute fresh Hatch green chile with roasted and peeled Anaheim peppers plus one roasted poblano per four Anaheims to add depth; replace asadero with mild provolone or low-moisture mozzarella rather than American cheese to preserve the clean dairy baseline.",
+    additionalDishes: [
+      {
+        name: "Hatch Green Chile Relleno",
+        prep: "Large, fully mature Hatch Big Jim chiles are fire-roasted over an open gas flame or on a comal until the skin blisters and blackens on all sides, then sealed in a plastic bag to steam for fifteen minutes before peeling. Each chile is slit along one side, seeded, and stuffed generously with Chihuahuan asadero cheese. The stuffed chiles are dredged in seasoned flour, dipped in a beaten egg white batter that has been folded to retain air, and fried in hot oil until the batter is golden and puffed, the cheese molten within.",
+        authenticityMarker: "Hatch Valley chile rellenos use the Big Jim cultivar — bred at New Mexico State University in Las Cruces specifically for its large, thick-walled flesh and the fire-roasting properties that make clean peeling possible — rather than the thinner-skinned Anaheim peppers used elsewhere. The valley's proximity to Chihuahua produces a strong asadero cheese tradition distinct from the cheddar used in Tex-Mex variations."
+      },
+      {
+        name: "Red Chile Ristra Sauce over Eggs (Huevos Rancheros)",
+        prep: "Dried red Hatch chiles from a ristra — left to dry on the vine and hung in bundles through the fall and winter — are stemmed, seeded, briefly toasted on a dry comal, and rehydrated in hot water. The softened chiles are blended with garlic, cumin, and a small amount of the soaking water, then strained and simmered in lard until the sauce darkens and concentrates to a brick-red, slightly thick consistency. Poured over fried eggs on warm corn tortillas.",
+        authenticityMarker: "The ristra is the defining agricultural icon of the Hatch Valley and the wider New Mexico chile economy — bundles of drying red chiles hung from portal posts are how the valley signals its identity visually. Using ristra-dried red Hatch chile (as opposed to fresh green) produces an entirely different flavor object — earthy, raisined, and slow-burning — that represents the full-season maturity of the same pod used green at the September roast."
+      },
+      {
+        name: "Green Chile Stew (Valley Style)",
+        prep: "Pork shoulder or beef chuck is cut into half-inch cubes and browned hard in a heavy pot with rendered lard. Fire-roasted, peeled, and chopped Hatch green chiles — from the valley's fall roast, often frozen — are added in generous quantity along with diced potato, garlic, and enough water or broth to barely cover. The stew simmers uncovered for one to two hours until the pork is completely tender and the broth is opaque and chile-scented, the potatoes having partially dissolved into a light thickening.",
+        authenticityMarker: "Hatch Valley green chile stew differs from the Santa Fe version primarily in the chile-to-meat ratio — in the valley itself, the chile is treated as the primary ingredient and the meat as seasoning rather than the reverse. Valley farmworker families who process the harvest use the lower-grade roasted chiles — split skins, irregular pieces — that do not meet retail standards, producing a stew that is more deeply flavored than any restaurant version."
+      },
+      {
+        name: "Chile-Rubbed Carne Adovada",
+        prep: "Bone-in pork ribs or pork shoulder pieces are coated in a paste of ground dried red Hatch chile, garlic, Mexican oregano, cumin, cider vinegar, and a small amount of oil, rubbed thoroughly into all surfaces, and refrigerated for twenty-four to forty-eight hours. The marinated meat is then slow-braised in a covered roasting pan in a moderate oven for three to four hours until the chile crust lacquers to a deep red, the pork falls from the bone, and the braising liquid reduces to a concentrated, glistening sauce.",
+        authenticityMarker: "Carne adovada is the definitive long-marination pork dish of the New Mexico red chile tradition, and the Hatch Valley version uses locally dried red chile paste rather than the powdered chile used in commercial preparations. The quality of the dried Hatch red — with its thin skin, high sugar, and complex capsaicin profile — is most apparent in a preparation where the chile is simultaneously the marinade, the cooking medium, and the sauce."
+      }
+    ]
   },
   {
     id: "southwest-phoenix-metro-salt-river",
@@ -69,7 +179,29 @@ export const southwest = [
     deviation: "Phoenix's Mexican food identity is stubbornly Sonoran in its reference points — carne asada over mesquite wood is the outdoor cooking default, and the flour tortilla is treated with the same reverence as in Tucson. But the city has also developed a distinctive street food culture around the Mexican-style hot dog: a Sonoran bacon-wrapped frankfurter grilled and served in a bolillo roll with pinto beans, tomatoes, mayonnaise, and mustard. This combination reads as improbable from the outside but is consumed with such regularity that it functions as a genuine regional artifact. The Medjool date shake, thick and cold against the desert heat, is the one ingredient-specific preparation that cannot be replicated elsewhere because the Phoenix Medjool harvested at peak sweetness in September has no equivalent.",
     heirloomIngredients: ["Phoenix-grown Medjool dates", "Sonoran flour tortilla (lard-rendered)", "carne asada beef skirt", "bacon-wrapped Sonoran hot dog", "Valencia oranges from remaining valley groves"],
     iconicDish: "Sonoran-style bacon-wrapped hot dog in a bolillo with pinto beans and date shake",
-    substitutionRule: "Substitute Phoenix Medjool dates with any Medjool date (the variety matters more than origin for the shake); replace wood-fired carne asada with skirt steak grilled over a very high charcoal fire, as the char and fat rendering are more structurally important than the wood smoke."
+    substitutionRule: "Substitute Phoenix Medjool dates with any Medjool date (the variety matters more than origin for the shake); replace wood-fired carne asada with skirt steak grilled over a very high charcoal fire, as the char and fat rendering are more structurally important than the wood smoke.",
+    additionalDishes: [
+      {
+        name: "Medjool Date Shake",
+        prep: "Fresh Medjool dates harvested from Phoenix-area date palms in September at peak sugar development — when the skin is wrinkled, the flesh caramel-soft, and the sugar so concentrated it crystallizes slightly at the pit — are pitted and blended with whole milk, a scoop of vanilla ice cream, and crushed ice. The result is blended until thick and poured into a tall glass; the flavor is of liquid caramel with dairy fat and a faint floral background from the date's natural tannins.",
+        authenticityMarker: "The Medjool date shake is the heat-season preparation most specific to the Salt River Valley, where date palms introduced in the 1920s as an agricultural experiment produce fruit of exceptional quality in the extreme desert summer. The shake is associated with roadside stands and orchards in the East Valley, particularly around Queen Creek and Mesa, where harvest-season dates are sold directly from family farms."
+      },
+      {
+        name: "Mesquite-Grilled Carne Asada Plate",
+        prep: "Beef skirt steak is scored lightly, seasoned only with salt, garlic powder, and dried Mexican oregano, and grilled over a very hot mesquite charcoal fire — the native desert mesquite tree producing coals of extraordinary density and heat — until the exterior chars hard and the interior remains pink. It is cut against the grain into thin slices and served on a large plate with Mexican rice cooked in tomato and chicken broth, refried pinto beans, warm Sonoran flour tortillas, and fresh guacamole.",
+        authenticityMarker: "Mesquite wood grilling is the outdoor cooking signature of the greater Phoenix Mexican American community, rooted in the Sonoran practice of grilling over native mesquite that has been continuous in the Salt River Valley since Mexican agricultural laborers built the post-Roosevelt Dam farming economy in the early twentieth century. The plated combination — rice, beans, tortilla, avocado — reflects the multigenerational Mexican American table of the East Valley barrios."
+      },
+      {
+        name: "Sonoran Hot Dog (El Güero Canelo Style)",
+        prep: "A beef frankfurter is wrapped tightly in a strip of bacon and grilled on a flat-top or charcoal grill until the bacon is fully rendered and crisped and the frankfurter has swelled and charred in the bacon fat. It is nestled into a soft, steamed bolillo-style bun that cradles rather than sandwiches the hot dog, then dressed in order: warm pinto beans, chopped fresh tomato, minced white onion, mayonnaise, mustard, and a final scatter of crumbled cotija cheese. Eaten immediately before the bun softens.",
+        authenticityMarker: "The Sonoran hot dog's origin is traced to Sonora, Mexico in the 1980s and its Phoenix presence is documented from the early 1990s through stands that preceded any national awareness of the preparation. El Güero Canelo in Tucson and its Phoenix-area counterparts have maintained the original bolillo bun, bean-first dressing order, and bacon-wrapping technique as distinct from any Texas or California hot dog tradition."
+      },
+      {
+        name: "Calabacitas with Green Chile and Corn",
+        prep: "Small Mexican grey squash (calabacitas) are diced into half-inch cubes and sautéed in vegetable oil with white onion and garlic until barely tender and beginning to brown at the edges. Fresh corn kernels cut from the cob, roasted and chopped Anaheim or Hatch green chiles, and a splash of water are added and the pan covered for five minutes until the corn softens and the squash fully collapses. Finished with salt and a generous amount of shredded cotija or asadero cheese melted over the top.",
+        authenticityMarker: "Calabacitas is a Three Sisters preparation — squash, corn, and chile used together — that reflects the Hohokam agricultural tradition of the Salt River Valley, which was a sophisticated canal-irrigated farming culture a millennium before Phoenix existed. The dish is ubiquitous in Phoenix's South Mountain and Laveen neighborhoods, which retain the densest multigenerational Mexican American agricultural community in the metro area."
+      }
+    ]
   },
   {
     id: "southwest-nevada-basin-range",
@@ -81,6 +213,28 @@ export const southwest = [
     deviation: "The Basque table is the most coherent and least-assimilated immigrant food tradition surviving in the rural American West: long communal tables in hotel dining rooms where strangers sit together and receive courses of lamb stew, pickled tongue, garbanzo bean soup, and red wine in a format that has changed almost nothing since 1910. Lamb is the protein anchor — Nevada lamb from high-desert ranges has a sagebrush-fed character that is gamier and more perfumed than commercial lamb, a quality considered a defect in most markets and a virtue by Basque ranchers. Single-leaf piñon nuts toasted in a dry skillet and eaten by the handful, or stirred into lamb stew as a fat and protein supplement, are the one ingredient that centers Nevada's indigenous and pastoral traditions in a single gesture.",
     heirloomIngredients: ["Nevada single-leaf piñon nuts", "sagebrush-fed Nevada lamb shoulder", "dried garbanzo beans", "Lahontan cutthroat trout (when legally available)", "Basque-style dried chorizo"],
     iconicDish: "Basque lamb stew with piñon nuts, garbanzo beans, and saffron-tinged broth",
-    substitutionRule: "Substitute Nevada sagebrush-fed lamb with any bone-in lamb shoulder; add one or two fresh sage leaves and a small sprig of rosemary to the braising liquid for the first 30 minutes then remove them, approximating the aromatic sagebrush character; replace single-leaf piñon nuts with Italian stone pine nuts (pignoli), which are the closest botanical relative and share the buttery resinous oil profile."
+    substitutionRule: "Substitute Nevada sagebrush-fed lamb with any bone-in lamb shoulder; add one or two fresh sage leaves and a small sprig of rosemary to the braising liquid for the first 30 minutes then remove them, approximating the aromatic sagebrush character; replace single-leaf piñon nuts with Italian stone pine nuts (pignoli), which are the closest botanical relative and share the buttery resinous oil profile.",
+    additionalDishes: [
+      {
+        name: "Basque Lamb and Garbanzo Bean Soup",
+        prep: "Bone-in lamb neck and shoulder pieces are browned in a large pot with olive oil, then simmered for two hours with dried garbanzo beans soaked overnight, chorizo slices, whole peeled tomatoes, paprika, saffron steeped in warm water, dried red pepper, and enough water to make a substantial broth. The soup is thick and rust-colored, the garbanzos having absorbed the saffron and lamb fat, the broth carrying the smoky depth of the chorizo. Served in deep bowls as a second course at the Basque boarding house table.",
+        authenticityMarker: "Garbanzo bean soup is one of the defining courses of the Nevada Basque hotel tradition documented in Elko, Gardnerville, and Winnemucca from the 1890s onward, where Basque sheepherders on seasonal contracts would return to the hotel dining room for communal meals. The use of saffron — an expensive spice carried from the Basque Country as a cultural marker — in a working-class herder's soup is a distinctly Basque statement of culinary identity in an otherwise spare landscape."
+      },
+      {
+        name: "Piñon Nut Soup (Northern Paiute)",
+        prep: "Nevada single-leaf piñon nuts are ground to a coarse paste on a flat grinding stone, then suspended in cold water and slowly brought to a simmer, stirring constantly to prevent the oil from separating. The resulting soup is thin and milky-white with the resinous, buttery sweetness of the fresh nut and a faint turpentine note that distinguishes single-leaf piñon from all other varieties. It is seasoned with salt only and consumed warm — a high-fat, high-calorie preparation designed for the cold inter-mountain winters.",
+        authenticityMarker: "Piñon nut soup is documented in Northern Paiute oral tradition and early ethnographic accounts of Great Basin food practices from the late nineteenth century. The single-leaf piñon nut (Pinus monophylla) is the dominant nut species of the Nevada Great Basin and was the most important caloric staple of Northern Paiute winter food stores — ground into soup, paste, or flatbread — making this preparation the most direct expression of the indigenous Nevada food tradition."
+      },
+      {
+        name: "Basque Pickled Tongue with Salsa Verde",
+        prep: "Whole beef tongue is simmered for three to four hours in a court-bouillon of bay, black pepper, onion, and white wine vinegar until completely tender. The tongue is peeled while hot, allowed to cool, and sliced thin against the muscle grain. It is served cold or at room temperature draped with a salsa verde of parsley, capers, garlic, olive oil, and a sharp amount of red wine vinegar — the acidity cutting the tongue's rich, gelatinous fat.",
+        authenticityMarker: "Pickled tongue is a standard course in the Basque hotel boarding house dinner sequence, alongside lamb stew and garbanzo soup, and its presence on the Nevada Basque table is documented continuously from the 1890s through the present at establishments like the Star Hotel in Elko and the J&T Bar in Wells. The preparation's persistence with almost no modification in over a century is what makes the Nevada Basque table one of the most historically intact immigrant food traditions in the American West."
+      },
+      {
+        name: "Lahontan Cutthroat Trout with Piñon Crust",
+        prep: "Whole Lahontan cutthroat trout — or its legal aquaculture equivalent — is cleaned and dried, then the flesh is pressed into a coating of coarsely ground piñon nuts, salt, black pepper, and dried sage rubbed between the palms. The crusted fish is pan-fried in a small amount of butter and rendered lard in a very hot cast-iron skillet for three minutes per side until the piñon crust is golden and the flesh inside is barely opaque. Finished with a squeeze of lemon and eaten immediately.",
+        authenticityMarker: "The Lahontan cutthroat trout is endemic to the Pyramid Lake and Truckee River system — it is the sacred food fish of the Pyramid Lake Paiute Tribe, and its near-extinction and subsequent recovery through tribal management is one of the most significant indigenous food sovereignty stories in the Great Basin. Pairing it with Nevada single-leaf piñon — the other primary Paiute staple — in a single preparation unites the two most culturally significant ingredients in northern Nevada's indigenous food system."
+      }
+    ]
   }
 ];
