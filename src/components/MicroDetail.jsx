@@ -104,6 +104,58 @@ function normalizeTags(val) {
   return { tags: arr, prose: null }
 }
 
+// ── Additional dish card ──────────────────────────────────────────
+function DishCard({ dish, accent }) {
+  const [expanded, setExpanded] = useState(false)
+  if (!dish?.name) return null
+  return (
+    <div style={{
+      background:'white', border:'1px solid #e8dcd0', borderRadius:12,
+      overflow:'hidden', boxShadow:'0 1px 4px rgba(0,0,0,0.05)',
+      transition:'box-shadow 0.15s',
+    }}
+    onMouseEnter={e=>e.currentTarget.style.boxShadow='0 3px 12px rgba(0,0,0,0.10)'}
+    onMouseLeave={e=>e.currentTarget.style.boxShadow='0 1px 4px rgba(0,0,0,0.05)'}>
+      {/* Thin accent bar */}
+      <div style={{ height:3, background:accent }}/>
+      <div style={{ padding:'0.9rem 1rem' }}>
+        <h4 style={{ fontFamily:'Georgia,serif', fontSize:'0.95rem', fontWeight:700,
+          color:'#1a1208', margin:'0 0 0.5rem', lineHeight:1.25 }}>
+          {dish.name}
+        </h4>
+        {dish.prep && (
+          <p style={{ fontSize:'0.78rem', lineHeight:1.7, color:'#5a4a35',
+            margin:'0 0 0.5rem',
+            // Clamp to 3 lines unless expanded
+            display:'-webkit-box', WebkitLineClamp: expanded ? 'none' : 3,
+            WebkitBoxOrient:'vertical', overflow: expanded ? 'visible' : 'hidden',
+          }}>
+            {dish.prep}
+          </p>
+        )}
+        {dish.prep && dish.prep.length > 120 && (
+          <button onClick={() => setExpanded(v=>!v)} style={{
+            background:'none', border:'none', cursor:'pointer', padding:0,
+            fontSize:'0.72rem', color:accent, fontWeight:600,
+          }}>
+            {expanded ? 'Less ↑' : 'More ↓'}
+          </button>
+        )}
+        {dish.authenticityMarker && (
+          <div style={{ display:'flex', gap:6, marginTop:'0.5rem',
+            background:`${accent}0c`, borderRadius:7, padding:'0.45rem 0.6rem' }}>
+            <span style={{ color:accent, fontSize:'0.8rem', flexShrink:0 }}>★</span>
+            <p style={{ fontSize:'0.7rem', lineHeight:1.6, color:'#7a6040', margin:0,
+              fontStyle:'italic' }}>
+              {dish.authenticityMarker}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 // ── Small primitives ──────────────────────────────────────────────
 function SectionHeader({ icon, label, accent }) {
   return (
@@ -435,6 +487,18 @@ export default function MicroDetail({
             </div>
           )}
 
+
+          {/* ── More Iconic Dishes ───────────────────────── */}
+          {microRegion.additionalDishes?.length > 0 && (
+            <div style={{ marginBottom:'2rem' }}>
+              <SectionHeader icon="🍴" label="More Iconic Dishes" accent={accent}/>
+              <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))', gap:'0.75rem' }}>
+                {microRegion.additionalDishes.map((d, i) => (
+                  <DishCard key={i} dish={d} accent={accent}/>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* ── Heirloom Ingredients + Substitution ──────── */}
           <SubCard
