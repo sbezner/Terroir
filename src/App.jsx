@@ -192,7 +192,6 @@ function MapPanel({ onSelectMicro, onShapeHighlight, highlightedMicroId, highlig
   }
 
   function handleMouseDown(e) {
-    if (scale <= 1) return
     setDragging(true)
     setDragStart({ x: e.clientX - offset.x, y: e.clientY - offset.y })
   }
@@ -203,7 +202,7 @@ function MapPanel({ onSelectMicro, onShapeHighlight, highlightedMicroId, highlig
   function handleMouseUp() { setDragging(false); setDragStart(null) }
 
   function handleTouchStart(e) {
-    if (e.touches.length === 1 && scale > 1) {
+    if (e.touches.length === 1) {
       setDragging(true)
       setDragStart({ x: e.touches[0].clientX-offset.x, y: e.touches[0].clientY-offset.y })
     }
@@ -270,7 +269,7 @@ function MapPanel({ onSelectMicro, onShapeHighlight, highlightedMicroId, highlig
       {/* Map canvas */}
       <div ref={mapRef}
         style={{ flex:1, overflow:'hidden',
-                 cursor: scale>1 ? (dragging ? 'grabbing' : 'grab') : 'default' }}
+                 cursor: dragging ? 'grabbing' : 'grab' }}
         onWheel={handleWheel}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
