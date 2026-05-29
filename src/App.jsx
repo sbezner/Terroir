@@ -149,13 +149,40 @@ export default function App() {
 
 // ── Map panel ────────────────────────────────────────────────────
 function MapPanel({ onSelectMicro, onShapeHighlight, highlightedMicroId, highlightedMegaregionId }) {
-  const [scale, setScale]       = useState(1)
-  const [offset, setOffset]     = useState({ x:0, y:0 })
-  const [dragging, setDragging] = useState(false)
-  const [dragStart, setDragStart] = useState(null)
+  const [scale, setScale]   = useState(1)
+  const [offset, setOffset] = useState({ x:0, y:0 })
+  const [isDragging, setIsDragging] = useState(false)
   const mapRef       = useRef(null)
   const scrollLocked = useRef(false)
   const scrollTimer  = useRef(null)
+  const dragRef      = useRef(null)   // { startX, startY, startOx, startOy }
+
+  // Document-level listeners keep drag alive even when mouse leaves the container
+  useEffect(() => {
+    function onMove(e) {
+      if (!dragRef.current) return
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY
+      setOffset({
+        x: clientX - dragRef.current.startX,
+        y: clientY - dragRef.current.startY,
+      })
+    }
+    function onUp() {
+      dragRef.current = null
+      setIsDragging(false)
+    }
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseup',   onUp)
+    document.addEventListener('touchmove', onMove, { passive: false })
+    document.addEventListener('touchend',  onUp)
+    return () => {
+      document.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseup',   onUp)
+      document.removeEventListener('touchmove', onMove)
+      document.removeEventListener('touchend',  onUp)
+    }
+  }, [])
 
   // Zoom to megaregion when highlighted
   useEffect(() => {
@@ -190,46 +217,32 @@ function MapPanel({ onSelectMicro, onShapeHighlight, highlightedMicroId, highlig
     scrollTimer.current = setTimeout(() => { scrollLocked.current = false }, 500)
 
     const factor   = e.deltaY < 0 ? 1.15 : 1 / 1.15
-    const newScale = Math.max(1, Math.min(8, scale * factor))
-    const f        = newScale / scale   // actual factor after clamping
+    const newScale = Math.max(0.5, Math.min(8, scale * factor))
+    const f        = newScale / scale
 
-    // Mouse position relative to the map container
     const rect = mapRef.current?.getBoundingClientRect()
     if (!rect) { setScale(newScale); return }
     const mx = e.clientX - rect.left
     const my = e.clientY - rect.top
-    const W  = rect.width
-    const H  = rect.height
 
-    // Derive new offset so the content point under the cursor stays fixed.
-    // Formula: offset2 = (1-f)*(mouse - containerCenter) + f*offset
     setScale(newScale)
     setOffset(prev => ({
-      x: (1 - f) * (mx - W / 2) + f * prev.x,
-      y: (1 - f) * (my - H / 2) + f * prev.y,
+      x: (1 - f) * (mx - rect.width  / 2) + f * prev.x,
+      y: (1 - f) * (my - rect.height / 2) + f * prev.y,
     }))
   }
 
-  function handleMouseDown(e) {
-    setDragging(true)
-    setDragStart({ x: e.clientX - offset.x, y: e.clientY - offset.y })
-  }
-  function handleMouseMove(e) {
-    if (!dragging || !dragStart) return
-    setOffset({ x: e.clientX - dragStart.x, y: e.clientY - dragStart.y })
-  }
-  function handleMouseUp() { setDragging(false); setDragStart(null) }
-
-  function handleTouchStart(e) {
-    if (e.touches.length === 1) {
-      setDragging(true)
-      setDragStart({ x: e.touches[0].clientX-offset.x, y: e.touches[0].clientY-offset.y })
+  function startDrag(clientX, clientY) {
+    dragRef.current = {
+      startX: clientX - offset.x,
+      startY: clientY - offset.y,
     }
+    setIsDragging(true)
   }
-  function handleTouchMove(e) {
-    if (!dragging || !dragStart || e.touches.length !== 1) return
-    e.preventDefault()
-    setOffset({ x: e.touches[0].clientX-dragStart.x, y: e.touches[0].clientY-dragStart.y })
+
+  function handleMouseDown(e) { startDrag(e.clientX, e.clientY) }
+  function handleTouchStart(e) {
+    if (e.touches.length === 1) startDrag(e.touches[0].clientX, e.touches[0].clientY)
   }
 
   function resetZoom() { setScale(1); setOffset({ x:0, y:0 }) }
@@ -288,15 +301,10 @@ function MapPanel({ onSelectMicro, onShapeHighlight, highlightedMicroId, highlig
       {/* Map canvas */}
       <div ref={mapRef}
         style={{ flex:1, overflow:'hidden',
-                 cursor: dragging ? 'grabbing' : 'grab' }}
+                 cursor: isDragging ? 'grabbing' : 'grab' }}
         onWheel={handleWheel}
         onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
         onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleMouseUp}
       >
         <div style={{
           width:'100%', height:'100%',
