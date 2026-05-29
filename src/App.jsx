@@ -188,7 +188,26 @@ function MapPanel({ onSelectMicro, onShapeHighlight, highlightedMicroId, highlig
     scrollLocked.current = true
     clearTimeout(scrollTimer.current)
     scrollTimer.current = setTimeout(() => { scrollLocked.current = false }, 500)
-    setScale(s => Math.max(1, Math.min(8, s * (e.deltaY < 0 ? 1.15 : 1/1.15))))
+
+    const factor   = e.deltaY < 0 ? 1.15 : 1 / 1.15
+    const newScale = Math.max(1, Math.min(8, scale * factor))
+    const f        = newScale / scale   // actual factor after clamping
+
+    // Mouse position relative to the map container
+    const rect = mapRef.current?.getBoundingClientRect()
+    if (!rect) { setScale(newScale); return }
+    const mx = e.clientX - rect.left
+    const my = e.clientY - rect.top
+    const W  = rect.width
+    const H  = rect.height
+
+    // Derive new offset so the content point under the cursor stays fixed.
+    // Formula: offset2 = (1-f)*(mouse - containerCenter) + f*offset
+    setScale(newScale)
+    setOffset(prev => ({
+      x: (1 - f) * (mx - W / 2) + f * prev.x,
+      y: (1 - f) * (my - H / 2) + f * prev.y,
+    }))
   }
 
   function handleMouseDown(e) {
