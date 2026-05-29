@@ -50,9 +50,43 @@ function pinD(R) {
   ].join(' ')
 }
 
-// micro-region → megaregion lookup (for fill decisions)
+// micro-region → megaregion lookup
 const MICRO_TO_MEGA = {}
 allMicroRegions.forEach(m => { MICRO_TO_MEGA[m.id] = m.megaregionId })
+
+// For multi-polygon regions, compute a centroid per disconnected sub-shape.
+// The path 'd' contains multiple sub-paths separated by 'Z M'.
+// Only shapes above a minimum bounding-box area get their own pin.
+function getSubCentroids(d, mainCx, mainCy) {
+  const MIN_AREA = 120  // SVG units² — skip tiny slivers
+  const parts = d.split(/Z\s*M\s+/)
+  if (parts.length <= 1) return [{ cx: mainCx, cy: mainCy }]
+
+  const results = parts.map((part, i) => {
+    const seg = i === 0 ? part : 'M ' + part
+    const xs = [], ys = []
+    for (const [, x, y] of seg.matchAll(/(-?[\d.]+),(-?[\d.]+)/g)) {
+      xs.push(+x); ys.push(+y)
+    }
+    if (xs.length < 4) return null
+    const w = Math.max(...xs) - Math.min(...xs)
+    const h = Math.max(...ys) - Math.min(...ys)
+    if (w * h < MIN_AREA) return null
+    return {
+      cx: Math.round(xs.reduce((a,b) => a+b, 0) / xs.length),
+      cy: Math.round(ys.reduce((a,b) => a+b, 0) / ys.length),
+      area: w * h,
+    }
+  }).filter(Boolean)
+
+  return results.length ? results : [{ cx: mainCx, cy: mainCy }]
+}
+
+// Pre-compute all pin locations (one or many per region)
+const REGION_PINS = {}
+microRegionPaths.forEach(r => {
+  if (r.cx > 0) REGION_PINS[r.id] = getSubCentroids(r.d, r.cx, r.cy)
+})
 
 export default function SvgMap({ onSelectMicro, onShapeHighlight, highlightedMicroId, highlightedMegaregionId, zoomScale = 1 }) {
   const [hoveredId, setHoveredId] = useState(null)
@@ -107,76 +141,61 @@ export default function SvgMap({ onSelectMicro, onShapeHighlight, highlightedMic
           )
         })}
 
-        {/* Pins + popups — rendered last so they sit on top */}
-        {microRegionPaths.filter(r => r.cx > 0).map(r => {
+        {/* Pins + popups — one popup per region, pins at every sub-shape centroid */}
+        {microRegionPaths.filter(r => REGION_PINS[r.id]).map(r => {
           const isHov      = hoveredId === r.id
           const isSelected =
             highlightedMicroId === r.id ||
             (highlightedMegaregionId && MICRO_TO_MEGA[r.id] === highlightedMegaregionId)
-          const c   = COLORS[r.id]
-          const pin  = isSelected ? '#c8880e' : (c?.pin  ?? '#7a6a50')
-          const dark = isSelected ? '#7a5200' : (c?.dark ?? '#4a3a28')
+          const c          = COLORS[r.id]
+          const pin        = isSelected ? '#c8880e' : (c?.pin ?? '#7a6a50')
           const accentColor = '#c8880e'
-          const name  = MICRO_NAME[r.id] || r.id
-          // Display name: truncate if too long for popup
+          const name       = MICRO_NAME[r.id] || r.id
           const displayName = name.length > 26 ? name.slice(0, 24) + '…' : name
+          const pins       = REGION_PINS[r.id]    // array of {cx,cy,area}
 
-          // Pin tip sits at region centroid
-          const tx = r.cx
-          const ty = r.cy
-
-          // Top of pin circle = ty - R*1.7 - R = ty - R*2.7
+          // Popup anchored on the largest (primary) sub-shape
+          const primary = pins.reduce((a, b) => (b.area ?? 0) > (a.area ?? 0) ? b : a, pins[0])
+          const tx = primary.cx, ty = primary.cy
           const pinTop  = ty - R * 2.7
-          // Popup sits above pin
           const popTop  = pinTop - GAP - PH
           const popLeft = tx - PW / 2
-
-          // Button inside popup
-          const btnY  = popTop + PH * 0.62
-          const btnH  = PH * 0.32
-          const btnX  = popLeft + PW * 0.12
-          const btnW  = PW * 0.76
+          const btnY = popTop + PH * 0.62
+          const btnH = PH * 0.32
+          const btnX = popLeft + PW * 0.12
+          const btnW = PW * 0.76
 
           return (
             <g key={r.id}
               onMouseEnter={() => setHoveredId(r.id)}
               onMouseLeave={() => setHoveredId(null)}
-              style={{ cursor: 'pointer' }}
+              // Mobile: tap navigates directly (no hover popup on touch)
+              onTouchEnd={e => { e.preventDefault(); onSelectMicro(r.id) }}
+              style={{ cursor:'pointer' }}
             >
-              {/* ── Popup (only when hovered) ─────────── */}
+              {/* Popup on primary pin — desktop hover only */}
               {isHov && (
                 <g filter="url(#pp)"
                   onMouseEnter={() => setHoveredId(r.id)}
                   onMouseLeave={() => setHoveredId(null)}>
-                  {/* Card body */}
-                  <rect x={popLeft} y={popTop}
-                    width={PW} height={PH} rx={PR}
-                    fill="white"/>
-                  {/* Accent stripe at top of card — always amber */}
-                  <rect x={popLeft} y={popTop}
-                    width={PW} height={3/zoomScale} rx={PR}
-                    fill={accentColor}/>
-                  {/* Invisible bridge fills the gap between popup and pin — prevents flicker */}
-                  <rect x={tx - PW/3} y={pinTop - GAP}
-                    width={PW/1.5} height={GAP * 1.5}
+                  <rect x={popLeft} y={popTop} width={PW} height={PH} rx={PR} fill="white"/>
+                  <rect x={popLeft} y={popTop} width={PW} height={3/zoomScale} rx={PR} fill={accentColor}/>
+                  <rect x={tx - PW/3} y={pinTop - GAP} width={PW/1.5} height={GAP*1.5}
                     fill="transparent" stroke="none"/>
-                  {/* Caret pointing down to pin */}
                   <polygon
-                    points={`${tx - ARROW},${popTop+PH} ${tx + ARROW},${popTop+PH} ${tx},${pinTop}`}
+                    points={`${tx-ARROW},${popTop+PH} ${tx+ARROW},${popTop+PH} ${tx},${pinTop}`}
                     fill="white"/>
-                  {/* Region name */}
-                  <text x={tx} y={popTop + PH * 0.35}
+                  <text x={tx} y={popTop + PH*0.35}
                     textAnchor="middle" dominantBaseline="middle"
                     fontSize={FS} fontFamily="Georgia,serif" fontWeight="600"
                     fill="#1a1208" style={{ userSelect:'none', pointerEvents:'none' }}>
                     {displayName}
                   </text>
-                  {/* "View Region →" button */}
                   <g onClick={e => { e.stopPropagation(); onSelectMicro(r.id) }}
                     style={{ cursor:'pointer' }}>
                     <rect x={btnX} y={btnY} width={btnW} height={btnH}
-                      rx={btnH / 2} fill={accentColor}/>
-                    <text x={tx} y={btnY + btnH / 2}
+                      rx={btnH/2} fill={accentColor}/>
+                    <text x={tx} y={btnY + btnH/2}
                       textAnchor="middle" dominantBaseline="middle"
                       fontSize={FSS} fontFamily="system-ui,sans-serif" fontWeight="600"
                       fill="white" style={{ userSelect:'none', pointerEvents:'none' }}>
@@ -186,15 +205,16 @@ export default function SvgMap({ onSelectMicro, onShapeHighlight, highlightedMic
                 </g>
               )}
 
-              {/* ── Pin marker ───────────────────────── */}
-              <g transform={`translate(${tx},${ty})`}
-                filter={isHov ? 'url(#ph)' : 'url(#ps)'}>
-                <path d={pinD(isHov ? R * 1.2 : R)} fill={pin}/>
-                {/* Inner highlight glint */}
-                <circle cx={0} cy={-(isHov ? R*1.2 : R)*1.7}
-                  r={(isHov ? R*1.2 : R) * 0.38}
-                  fill="rgba(255,255,255,0.40)"/>
-              </g>
+              {/* One pin per sub-shape */}
+              {pins.map((pt, pi) => (
+                <g key={pi} transform={`translate(${pt.cx},${pt.cy})`}
+                  filter={isHov ? 'url(#ph)' : 'url(#ps)'}>
+                  <path d={pinD(isHov ? R*1.2 : R)} fill={pin}/>
+                  <circle cx={0} cy={-(isHov ? R*1.2 : R)*1.7}
+                    r={(isHov ? R*1.2 : R)*0.38}
+                    fill="rgba(255,255,255,0.40)"/>
+                </g>
+              ))}
             </g>
           )
         })}
