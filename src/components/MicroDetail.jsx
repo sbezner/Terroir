@@ -91,16 +91,17 @@ function normalizeIconicDish(dish) {
 
 function normalizeTags(val) {
   if (!val) return { tags: [], prose: null }
-  if (Array.isArray(val)) {
-    const joined = val.join(', ')
-    if (joined.length > 200) return { tags: [], prose: joined }
-    return { tags: val.filter(Boolean), prose: null }
-  }
-  const str = String(val).trim()
-  const parts = str.split(/[,;]/).map(s => s.trim()).filter(Boolean)
-  const avg = parts.reduce((s, p) => s + p.length, 0) / (parts.length || 1)
-  if (avg > 55 || parts.length <= 1) return { tags: [], prose: str }
-  return { tags: parts, prose: null }
+  const arr = Array.isArray(val)
+    ? val.filter(Boolean)
+    : String(val).trim().split(/[,;]/).map(s => s.trim()).filter(Boolean)
+
+  if (arr.length <= 1) return { tags: [], prose: arr[0] || null }
+
+  // If ANY single item is too long for a pill, show everything as prose
+  const maxLen = Math.max(...arr.map(s => s.length))
+  if (maxLen > 38) return { tags: [], prose: arr.join('. ') }
+
+  return { tags: arr, prose: null }
 }
 
 // ── Small primitives ──────────────────────────────────────────────
@@ -353,6 +354,41 @@ export default function MicroDetail({
             {boundsDescription}
           </p>
 
+          {/* ── Iconic Dish — first, most engaging section ── */}
+          {dish?.name && (
+            <div style={{
+              borderRadius:16, overflow:'hidden', marginBottom:'2rem',
+              border:'1px solid #e8dcd0',
+              boxShadow:'0 2px 12px rgba(0,0,0,0.08)',
+            }}>
+              <div style={{ background:accent, padding:'0.65rem 1.5rem',
+                display:'flex', alignItems:'center', gap:8 }}>
+                <span style={{ fontSize:'1rem' }}>🍽️</span>
+                <span style={{ fontFamily:'"Courier New",monospace', fontSize:'0.62rem',
+                  letterSpacing:'0.16em', textTransform:'uppercase',
+                  color:'rgba(255,255,255,0.85)' }}>Iconic Dish</span>
+              </div>
+              <div style={{ background:'white', padding:'1.5rem' }}>
+                <h2 style={{ fontFamily:'Georgia,serif', fontSize:'1.9rem', fontWeight:700,
+                  color:'#1a1208', margin:'0 0 1rem', lineHeight:1.2 }}>
+                  {dish.name}
+                </h2>
+                {dish.prep && (
+                  <p style={{ fontSize:'0.88rem', lineHeight:1.85, color:'#3a2a18',
+                    margin:'0 0 1rem' }}>{dish.prep}</p>
+                )}
+                {dish.authenticityMarker && (
+                  <div style={{ display:'flex', gap:10, background:`${accent}0e`,
+                    border:`1px solid ${accent}28`, borderRadius:10, padding:'0.65rem 0.9rem' }}>
+                    <span style={{ color:accent, fontSize:'1rem', flexShrink:0, marginTop:1 }}>★</span>
+                    <p style={{ fontSize:'0.8rem', lineHeight:1.7, color:'#5a4a35',
+                      margin:0, fontStyle:'italic' }}>{dish.authenticityMarker}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* ── Culture + Terroir ─────────────────────────── */}
           {(culture.tags.length > 0 || culture.prose ||
             terroir.tags.length > 0 || terroir.prose) && (
@@ -399,56 +435,6 @@ export default function MicroDetail({
             </div>
           )}
 
-          {/* ── Iconic Dish ──────────────────────────────── */}
-          {dish?.name && (
-            <div style={{
-              borderRadius:16, overflow:'hidden', marginBottom:'2rem',
-              border:'1px solid #e8dcd0',
-              boxShadow:'0 2px 12px rgba(0,0,0,0.08)',
-            }}>
-              {/* Dish header bar */}
-              <div style={{ background:accent, padding:'0.65rem 1.5rem',
-                            display:'flex', alignItems:'center', gap:8 }}>
-                <span style={{ fontSize:'1rem' }}>🍽️</span>
-                <span style={{ fontFamily:'"Courier New",monospace', fontSize:'0.62rem',
-                  letterSpacing:'0.16em', textTransform:'uppercase',
-                  color:'rgba(255,255,255,0.85)' }}>
-                  Iconic Dish
-                </span>
-              </div>
-
-              <div style={{ background:'white', padding:'1.5rem' }}>
-                <h2 style={{
-                  fontFamily:'Georgia,serif', fontSize:'1.9rem', fontWeight:700,
-                  color:'#1a1208', margin:'0 0 1rem', lineHeight:1.2,
-                }}>
-                  {dish.name}
-                </h2>
-
-                {dish.prep && (
-                  <p style={{ fontSize:'0.88rem', lineHeight:1.85,
-                              color:'#3a2a18', margin:'0 0 1rem' }}>
-                    {dish.prep}
-                  </p>
-                )}
-
-                {dish.authenticityMarker && (
-                  <div style={{
-                    display:'flex', gap:10, background:`${accent}0e`,
-                    border:`1px solid ${accent}28`, borderRadius:10,
-                    padding:'0.75rem 1rem',
-                  }}>
-                    <span style={{ color:accent, fontSize:'1rem', flexShrink:0,
-                                   marginTop:1 }}>★</span>
-                    <p style={{ fontSize:'0.8rem', lineHeight:1.7,
-                                color:'#5a4a35', margin:0, fontStyle:'italic' }}>
-                      {dish.authenticityMarker}
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
 
           {/* ── Heirloom Ingredients + Substitution ──────── */}
           <SubCard

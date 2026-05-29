@@ -121,24 +121,19 @@ export default function App() {
     )
   }
 
-  // ── Map layout ─────────────────────────────────────────────────
+  // ── Map layout — full-width, browse panel lives inside the map ─
   return (
     <Layout
-      nav={
-        <RegionSidebar
-          allMicroRegions={allMicroRegions}
-          activeMegaregionId={activeMegaregionId}
-          activeMicroId={highlightedMicroId}
-          onSelectMegaregion={handleSelectMegaregion}
-          onSelectMicro={handleTreeSelectMicro}
-        />
-      }
       main={
         <TerritorMap
           onSelectMicro={handleMapSelectMicro}
           onShapeHighlight={handleMapShapeHighlight}
           highlightedMicroId={highlightedMicroId}
           highlightedMegaregionId={highlightedMegaregionId}
+          allMicroRegions={allMicroRegions}
+          activeMegaregionId={activeMegaregionId}
+          onSelectMegaregion={handleSelectMegaregion}
+          onTreeSelectMicro={handleTreeSelectMicro}
         />
       }
     />

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -103,11 +103,194 @@ function MapController({ mapRef, highlightedMegaregionId, regionLayerRef }) {
   return null
 }
 
+// ── Browse panel (search + accordion tree) ───────────────────────
+function BrowsePanel({ allMicroRegions, activeMegaregionId, onSelectMegaregion, onTreeSelectMicro, highlightedMicroId, onClose }) {
+  const [query, setQuery] = useState('')
+
+  const megaregions = useMemo(() => {
+    const map = {}
+    allMicroRegions.forEach(m => {
+      if (!map[m.megaregionId]) map[m.megaregionId] = { id: m.megaregionId, micros: [] }
+      map[m.megaregionId].micros.push(m)
+    })
+    return Object.values(map)
+      .sort((a, b) => {
+        const nameA = a.micros[0]?.megaregionId || ''
+        const nameB = b.micros[0]?.megaregionId || ''
+        return nameA.localeCompare(nameB)
+      })
+  }, [allMicroRegions])
+
+  // Import megaregion labels
+  const MEGA_LABELS = {
+    atlantic:'Atlantic New England', mid_atlantic:'Mid-Atlantic',
+    appalachian:'Appalachian', lowcountry:'Lowcountry', gulf:'Gulf Coast',
+    heartland:'Heartland', plains:'Great Plains', tex_mex:'Tex-Mex Borderlands',
+    southwest:'Southwest', cascadia:'Cascadia', california:'California',
+  }
+
+  const q = query.toLowerCase().trim()
+  const filtered = q
+    ? allMicroRegions.filter(m => m.name.toLowerCase().includes(q))
+    : null
+
+  return (
+    <div style={{
+      position:'absolute', top:0, left:0, bottom:0,
+      width:280, zIndex:1100,
+      background:'rgba(15,11,7,0.94)', backdropFilter:'blur(12px)',
+      borderRight:'1px solid rgba(255,255,255,0.08)',
+      display:'flex', flexDirection:'column',
+      boxShadow:'4px 0 24px rgba(0,0,0,0.4)',
+    }}>
+      {/* Header */}
+      <div style={{ flexShrink:0, padding:'1rem 1rem 0.75rem',
+        borderBottom:'1px solid rgba(255,255,255,0.08)',
+        display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+        <span style={{ fontFamily:'Georgia,serif', fontSize:'0.85rem', fontWeight:700,
+          letterSpacing:'0.2em', textTransform:'uppercase', color:'#f0e4d0' }}>
+          Regions
+        </span>
+        <button onClick={onClose} style={{ background:'none', border:'none',
+          cursor:'pointer', color:'rgba(240,228,208,0.5)', fontSize:'1.1rem',
+          lineHeight:1, padding:'2px 4px' }}>✕</button>
+      </div>
+
+      {/* Search */}
+      <div style={{ flexShrink:0, padding:'0.75rem 1rem',
+        borderBottom:'1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ position:'relative' }}>
+          <svg style={{ position:'absolute', left:9, top:'50%', transform:'translateY(-50%)',
+            width:14, height:14, color:'rgba(240,228,208,0.4)', pointerEvents:'none' }}
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
+          </svg>
+          <input
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder="Search regions…"
+            style={{
+              width:'100%', padding:'7px 28px 7px 30px',
+              background:'rgba(255,255,255,0.07)',
+              border:'1px solid rgba(255,255,255,0.12)',
+              borderRadius:8, color:'#f0e4d0', fontSize:'0.8rem',
+              outline:'none', boxSizing:'border-box',
+            }}
+          />
+          {query && (
+            <button onClick={() => setQuery('')} style={{
+              position:'absolute', right:8, top:'50%', transform:'translateY(-50%)',
+              background:'none', border:'none', cursor:'pointer',
+              color:'rgba(240,228,208,0.4)', fontSize:'0.85rem', lineHeight:1,
+            }}>✕</button>
+          )}
+        </div>
+      </div>
+
+      {/* List */}
+      <div style={{ flex:1, overflowY:'auto' }}>
+        {filtered ? (
+          /* Search results — flat list */
+          filtered.length === 0
+            ? <p style={{ color:'rgba(240,228,208,0.4)', fontSize:'0.8rem',
+                padding:'1.25rem 1rem', margin:0 }}>No regions match "{query}"</p>
+            : filtered.map(m => (
+                <button key={m.id}
+                  onClick={() => { onTreeSelectMicro(m.id); onClose() }}
+                  style={{
+                    width:'100%', textAlign:'left', padding:'0.6rem 1rem',
+                    background: highlightedMicroId===m.id ? 'rgba(200,136,14,0.18)' : 'transparent',
+                    borderLeft: highlightedMicroId===m.id ? '3px solid #c8880e' : '3px solid transparent',
+                    border:'none', cursor:'pointer', color:'#e8d8bc', fontSize:'0.8rem',
+                  }}>
+                  <div style={{ fontWeight:500, marginBottom:2 }}>{m.name}</div>
+                  <div style={{ color:'rgba(240,228,208,0.4)', fontSize:'0.7rem' }}>
+                    {MEGA_LABELS[m.megaregionId]}
+                  </div>
+                </button>
+              ))
+        ) : (
+          /* Full accordion tree */
+          megaregions.map(({ id, micros }) => {
+            const isOpen = activeMegaregionId === id
+            const accent = ACCENT[id] || '#888'
+            const sorted = [...micros].sort((a,b) => a.name.localeCompare(b.name))
+            return (
+              <div key={id} style={{ borderBottom:'1px solid rgba(255,255,255,0.05)' }}>
+                <button
+                  onClick={() => onSelectMegaregion(id)}
+                  style={{
+                    width:'100%', textAlign:'left',
+                    padding:'0.65rem 1rem',
+                    background: isOpen ? `${accent}18` : 'transparent',
+                    border:'none', cursor:'pointer',
+                    display:'flex', alignItems:'center', gap:8,
+                  }}>
+                  <div style={{ width:8, height:8, borderRadius:'50%',
+                    background:accent, flexShrink:0 }}/>
+                  <span style={{ flex:1, fontSize:'0.8rem', fontWeight:600,
+                    color: isOpen ? '#f0e4d0' : 'rgba(240,228,208,0.7)',
+                    overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
+                    {MEGA_LABELS[id]}
+                  </span>
+                  <span style={{ fontSize:'0.62rem', color:'rgba(240,228,208,0.35)',
+                    fontFamily:'"Courier New",monospace' }}>{micros.length}</span>
+                  <svg style={{ width:12, height:12, color:'rgba(240,228,208,0.4)',
+                    transform: isOpen ? 'rotate(180deg)' : 'none',
+                    transition:'transform 0.2s', flexShrink:0 }}
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </button>
+
+                <div style={{ overflow:'hidden', maxHeight: isOpen ? `${sorted.length * 52}px` : 0,
+                  transition:'max-height 0.25s ease' }}>
+                  {sorted.map((m, i) => {
+                    const active = highlightedMicroId === m.id
+                    return (
+                      <button key={m.id}
+                        onClick={() => { onTreeSelectMicro(m.id); if (window.innerWidth < 768) onClose() }}
+                        style={{
+                          width:'100%', textAlign:'left',
+                          padding:'0.5rem 1rem 0.5rem 1.75rem',
+                          background: active ? 'rgba(200,136,14,0.18)' : 'transparent',
+                          borderLeft: active ? `3px solid ${accent}` : '3px solid transparent',
+                          border:'none', cursor:'pointer',
+                        }}>
+                        <div style={{ display:'flex', gap:6, alignItems:'baseline' }}>
+                          <span style={{ fontFamily:'"Courier New",monospace', fontSize:'0.58rem',
+                            color:'rgba(240,228,208,0.25)', flexShrink:0 }}>
+                            {String(i+1).padStart(2,'0')}
+                          </span>
+                          <div>
+                            <div style={{ fontSize:'0.75rem', fontWeight: active ? 600 : 400,
+                              color: active ? '#f0e4d0' : 'rgba(240,228,208,0.6)',
+                              lineHeight:1.3 }}>
+                              {m.name}
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })
+        )}
+      </div>
+    </div>
+  )
+}
+
 // ── Main component ────────────────────────────────────────────────
 export default function TerritorMap({
   onSelectMicro, onShapeHighlight,
   highlightedMicroId, highlightedMegaregionId,
+  allMicroRegions, activeMegaregionId, onSelectMegaregion, onTreeSelectMicro,
 }) {
+  const [panelOpen, setPanelOpen] = useState(false)
   const mapRef         = useRef(null)
   const regionLayerRef = useRef(null)
   const [hovered, setHovered] = useState(null)
@@ -166,15 +349,33 @@ export default function TerritorMap({
         borderBottom:'1px solid rgba(255,255,255,0.10)',
         display:'flex', alignItems:'center', justifyContent:'space-between',
       }}>
-        <div>
-          <span style={{ fontFamily:'Georgia,serif', fontSize:'1.05rem', fontWeight:700,
-            letterSpacing:'0.28em', textTransform:'uppercase', color:'#f0e4d0' }}>
-            American Culinary Atlas
-          </span>
-          <span className="hidden sm:inline" style={{ fontFamily:'"Courier New",monospace', fontSize:'0.58rem',
-            letterSpacing:'0.12em', color:'rgba(240,228,208,0.4)', marginLeft:'1rem' }}>
-            76 micro-regions · tap a pin to explore
-          </span>
+        <div style={{ display:'flex', alignItems:'center', gap:10 }}>
+          {/* Browse toggle */}
+          <button
+            onClick={() => setPanelOpen(v => !v)}
+            title="Browse all regions"
+            style={{
+              ...ctrlBtn,
+              background: panelOpen ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.10)',
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"
+              stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+              <line x1="2" y1="4" x2="14" y2="4"/>
+              <line x1="2" y1="8" x2="10" y2="8"/>
+              <line x1="2" y1="12" x2="12" y2="12"/>
+            </svg>
+          </button>
+          <div>
+            <span style={{ fontFamily:'Georgia,serif', fontSize:'1.05rem', fontWeight:700,
+              letterSpacing:'0.28em', textTransform:'uppercase', color:'#f0e4d0' }}>
+              American Culinary Atlas
+            </span>
+            <span className="hidden sm:inline" style={{ fontFamily:'"Courier New",monospace', fontSize:'0.58rem',
+              letterSpacing:'0.12em', color:'rgba(240,228,208,0.4)', marginLeft:'1rem' }}>
+              76 micro-regions · tap a pin to explore
+            </span>
+          </div>
         </div>
         <div style={{ display:'flex', alignItems:'center', gap:6 }}>
           <button onClick={center} title="Fit USA" style={ctrlBtn}>
@@ -191,7 +392,7 @@ export default function TerritorMap({
         </div>
       </div>
 
-      {/* Leaflet map */}
+      {/* Leaflet map + optional browse panel overlay */}
       <div style={{ flex:1, position:'relative' }}>
         <MapContainer
           bounds={US_BOUNDS}
@@ -262,6 +463,26 @@ export default function TerritorMap({
             )
           })}
         </MapContainer>
+
+        {/* Browse panel — slides in from left over the map */}
+        {panelOpen && (
+          <>
+            <BrowsePanel
+              allMicroRegions={allMicroRegions}
+              activeMegaregionId={activeMegaregionId}
+              onSelectMegaregion={onSelectMegaregion}
+              onTreeSelectMicro={onTreeSelectMicro}
+              highlightedMicroId={highlightedMicroId}
+              onClose={() => setPanelOpen(false)}
+            />
+            {/* Scrim — tap outside panel to close */}
+            <div
+              onClick={() => setPanelOpen(false)}
+              style={{ position:'absolute', inset:0, zIndex:1050,
+                background:'rgba(0,0,0,0.25)', backdropFilter:'blur(1px)' }}
+            />
+          </>
+        )}
 
         {/* Hover badge */}
         {hovered && (
