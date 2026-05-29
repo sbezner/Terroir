@@ -121,7 +121,11 @@ export default function SvgMap({ onSelectMicro, onShapeHighlight, highlightedMic
           </filter>
         </defs>
 
-        <rect width="960" height="600" fill="#7aabca"/>
+        {/* Ocean background — tap/click clears any open popup */}
+        <rect width="960" height="600" fill="#7aabca"
+          onClick={() => setHoveredId(null)}
+          onTouchStart={() => setHoveredId(null)}
+          style={{ cursor:'default' }}/>
 
         {/* Region fills — neutral parchment; micro or full megaregion turns amber */}
         {microRegionPaths.map(r => {
@@ -157,7 +161,8 @@ export default function SvgMap({ onSelectMicro, onShapeHighlight, highlightedMic
             <g key={r.id}
               onMouseEnter={() => setHoveredId(r.id)}
               onMouseLeave={() => setHoveredId(null)}
-              onTouchEnd={e => { e.preventDefault(); onSelectMicro(r.id) }}
+              // Mobile: first tap shows popup (same as hover); user then taps "View Region →"
+              onTouchStart={e => { e.stopPropagation(); setHoveredId(r.id) }}
               style={{ cursor:'pointer' }}
             >
               {pins.map((pt, pi) => (
@@ -196,7 +201,8 @@ export default function SvgMap({ onSelectMicro, onShapeHighlight, highlightedMic
           return (
             <g filter="url(#pp)"
               onMouseEnter={() => setHoveredId(hoveredId)}
-              onMouseLeave={() => setHoveredId(null)}>
+              onMouseLeave={() => setHoveredId(null)}
+              onTouchStart={e => e.stopPropagation()}>
               <rect x={popLeft} y={popTop} width={PW} height={PH} rx={PR} fill="white"/>
               <rect x={popLeft} y={popTop} width={PW} height={3/zoomScale} rx={PR} fill={accentColor}/>
               {/* Invisible bridge — prevents flicker as mouse travels pin→popup */}
@@ -211,7 +217,9 @@ export default function SvgMap({ onSelectMicro, onShapeHighlight, highlightedMic
                 fill="#1a1208" style={{ userSelect:'none', pointerEvents:'none' }}>
                 {displayName}
               </text>
-              <g onClick={e => { e.stopPropagation(); onSelectMicro(r.id) }}
+              <g
+                onClick={e => { e.stopPropagation(); onSelectMicro(r.id) }}
+                onTouchEnd={e => { e.stopPropagation(); e.preventDefault(); onSelectMicro(r.id) }}
                 style={{ cursor:'pointer' }}>
                 <rect x={btnX} y={btnY} width={btnW} height={btnH}
                   rx={btnH/2} fill={accentColor}/>
