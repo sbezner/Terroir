@@ -310,7 +310,7 @@ function MapPanel({ onSelectMicro, onShapeHighlight, highlightedMicroId, highlig
           width:'100%', height:'100%',
           transform:`scale(${scale}) translate(${offset.x/scale}px,${offset.y/scale}px)`,
           transformOrigin:'center center',
-          transition: dragging ? 'none' : 'transform 0.15s ease',
+          transition: isDragging ? 'none' : 'transform 0.15s ease',
         }}>
           <SvgMap
             onSelectMicro={handleMapClick}
