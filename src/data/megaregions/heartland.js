@@ -1,0 +1,110 @@
+export const heartland = [
+  {
+    id: "heartland-chicago-great-lakes",
+    name: "Chicago / Great Lakes",
+    megaregionId: "heartland",
+    boundsDescription: "Northeastern Illinois and the southwestern shore of Lake Michigan, anchored by Chicago and extending through the collar counties to the Indiana border.",
+    culture: "Industrial immigrant melting pot — Polish, Lithuanian, Ukrainian, and Mexican communities layered over a Midwestern Protestant core, shaped by the stockyards, the railroads, and the blues.",
+    terroir: "Flat glacial plain meeting cold freshwater lake; heavy clay soils, fierce lake-effect winters, and a short but intense growing season that favors root vegetables and cold-hardy brassicas.",
+    deviation: "Chicago cooking defies coastal fine-dining norms by celebrating excess and architectural drama — the deep-dish pizza is a casserole, the Italian beef is dunked until it dissolves, and the Maxwell Street Polish sausage is charred to near-blackness. Immigrant pantries fused here in ways that never happened in the old country: Mexican chiles found their way into Polish sausage shops; Ukrainian borscht gained a smoky, barbecue-inflected depth. The lake itself acts as a larder — smelt runs, yellow perch, and alewife still anchor neighborhood fish fries every Friday. Portion logic here is abundance as hospitality, not gluttony.",
+    heirloomIngredients: ["Chicago-style sport peppers", "Calumet-region sweet corn", "Lake Michigan yellow perch"],
+    iconicDish: "Italian beef sandwich (au jus-dipped, giardiniera-topped, on Turano bread)",
+    substitutionRule: "When sport peppers are unavailable, substitute pickled Pepperoncini; when Turano hoagie rolls are absent, use any sturdy Italian-style roll that can absorb braising liquid without collapsing."
+  },
+  {
+    id: "heartland-wisconsin-dairyland",
+    name: "Wisconsin Dairyland",
+    megaregionId: "heartland",
+    boundsDescription: "Central and southern Wisconsin from Green Bay and the Door Peninsula south through Madison to the Illinois border, encompassing the Driftless Area escarpments and the morainic dairy belt.",
+    culture: "German and Scandinavian Lutheran farm culture fused with a strong Czech and Polish presence in the central counties; cheese-making as craft identity, supper-club formalism, and Friday-night fish fry as civic ritual.",
+    terroir: "Glacially sculpted moraines and kettle lakes; rich loam over limestone, cool humid summers ideal for alfalfa and timothy grass that produces the high-butterfat milk underlying Wisconsin's cheese economy.",
+    deviation: "Wisconsin resists national food trends by doubling down on dairy fat as a virtue: butter is measured in sticks, not tablespoons, and cheese curds are consumed by the bag within hours of production because the squeak is a freshness indicator no aged product can replicate. The supper club tradition collapses fine-dining ceremony into communal roadhouse warmth — relish trays arrive before menus, Old Fashioneds are made with brandy not whiskey, and prime rib is the default prestige protein. Venison from the late-November deer season is treated with the same seriousness as beef, marinated in juniper and cold-smoked over applewood. Lutefisk persists in northern communities as a cultural loyalty test more than a culinary preference.",
+    heirloomIngredients: ["Wisconsin cheese curds (day-of production)", "Door County Montmorency tart cherries", "Kringle pastry dough (Racine Danish-style)"],
+    iconicDish: "Beer cheese soup with rye croutons and fresh cheese curd garnish",
+    substitutionRule: "When fresh cheese curds are unavailable, use young white cheddar cut in rough cubes; when Montmorency cherries are out of season, substitute Morello cherry preserves with a teaspoon of cider vinegar to restore tartness."
+  },
+  {
+    id: "heartland-michigan-lake-shore",
+    name: "Michigan Lake Shore",
+    megaregionId: "heartland",
+    boundsDescription: "The western Michigan shoreline from the Straits of Mackinac south through Traverse City and the Leelanau Peninsula to the fruit belt of Berrien and Van Buren counties along Lake Michigan.",
+    culture: "Dutch Reformed agricultural communities in the southwest, mixed Scandinavian and Finnish fishing settlements in the north, and a persistent Native Odawa presence that anchors knowledge of wild rice, maple, and lake fish.",
+    terroir: "Temperate lake-effect microclimate moderated by Lake Michigan creates a rare northern fruit belt; sandy loam soils over clay support cherries, peaches, apples, and wine grapes at latitudes that should be too cold for them.",
+    deviation: "Michigan's lake shore operates as an anomalous Mediterranean pocket within the Rust Belt — stone fruit grown here carries an intensity that surprises growers farther south because cold-stressed trees concentrate sugars. The Dutch colonial pantry (speculaas spice, pickled herring, Gouda-style farmstead cheese) never fully assimilated into mainstream Midwestern cooking and survives in Holland and Zeeland as a parallel food culture. Whitefish from the Straits is smoked over cherry wood in a technique that merges Finnish and Odawa traditions, producing a product unlike any Atlantic smoked fish. In autumn, cider culture rivals wine culture, with heirloom apple varieties pressed into tannic, funky farmhouse ciders largely unknown outside the region.",
+    heirloomIngredients: ["Montmorency tart cherries (Traverse City)", "Lake whitefish (Straits of Mackinac)", "Holland-style Dutch speculaas spice blend"],
+    iconicDish: "Cherry-wood smoked whitefish with pickled cherry relish and dark rye flatbread",
+    substitutionRule: "When Lake whitefish is unavailable, substitute lake trout or Arctic char; when Montmorency cherries are out of season, use dried tart cherries rehydrated in apple cider vinegar."
+  },
+  {
+    id: "heartland-minnesota-north-woods",
+    name: "Minnesota North Woods / Scandinavian Belt",
+    megaregionId: "heartland",
+    boundsDescription: "Northern Minnesota from the Iron Range and Boundary Waters Canoe Area south through the Twin Cities exurbs, encompassing lake country, boreal forest, and the Red River Valley wheat plain to the west.",
+    culture: "Norwegian, Swedish, and Finnish Lutheran immigrants whose food culture centered on preservation, fermentation, and stoic frugality; Ojibwe and Dakota nations whose wild rice, maple, and venison traditions predate and continue alongside European settlement.",
+    terroir: "Boreal forest over Precambrian shield rock; ten thousand glacial lakes, peat bogs producing wild blueberries and cranberries, river valleys growing the nation's only commercially harvested wild rice, and a growing season so short that root cellaring is not optional.",
+    deviation: "Minnesota's Scandinavian belt practices a fermentation and preservation aesthetic that feels closer to Oslo than to the American Midwest — lutefisk, lefse, and pickled herring are eaten with earnest pleasure rather than nostalgic irony. Wild rice is not an exotic ingredient here but a staple starch treated with the same everyday familiarity that polenta has in Lombardy, and Ojibwe harvesting methods by canoe and flail remain the primary production technique. The hotdish (tater tot casserole being its apex form) represents a genuine culinary philosophy: everything valuable gets pooled into one communal vessel, waste is sin, and cream of mushroom soup is an acceptable binder for almost anything. Cold-smoking of fish, game, and sausage runs year-round because the climate provides a natural refrigerator half the year.",
+    heirloomIngredients: ["Minnesota wild rice (Ojibwe hand-harvested)", "Lingonberries", "Lefse (potato flatbread)"],
+    iconicDish: "Wild rice and walleye hotdish with cream sauce and crispy tater tot crust",
+    substitutionRule: "When hand-harvested wild rice is unavailable, use cultivated paddy wild rice and extend cooking time by five minutes; when lingonberries are absent, substitute a mixture of cranberry preserves and red currant jelly in equal parts."
+  },
+  {
+    id: "heartland-iowa-corn-belt",
+    name: "Iowa Corn Belt",
+    megaregionId: "heartland",
+    boundsDescription: "The agricultural heartland of Iowa from the Missouri River bluffs in the west across the Des Moines lobe glacial plain to the Mississippi River bottomlands in the east.",
+    culture: "Predominantly German and Czech Protestant farming communities with strong Quaker and Methodist temperance influence in the southeast; a food culture built on self-sufficiency, the whole-hog butchering tradition, and county-fair competition as the highest form of culinary achievement.",
+    terroir: "The deepest topsoil on the continent — up to sixteen inches of black mollisol over glacial till; flat to gently rolling landscape, reliable summer rainfall, and seasonal extremes that stress-test both crops and cooks.",
+    deviation: "Iowa cooking is unapologetically utilitarian and resists ornamentation in ways that read as radical minimalism rather than poverty: a pork tenderloin pounded to the diameter of a dinner plate and fried in lard needs no sauce because the meat and fat are the point. The state's Czech immigrant communities preserved kolache and rohliky traditions with a fidelity that Czech-Americans elsewhere lost, making Iowa small towns unexpectedly authoritative sources for central European pastry. Sweet corn, eaten within hours of harvest during a six-week window in July and August, is treated with reverence — anything more than butter and salt is considered interference. The state fair's competitive food culture has produced an entire genre of fried novelty food that functions as a laboratory for American excess.",
+    heirloomIngredients: ["Iowa Silver Queen sweet corn", "Maytag blue cheese (Newton, Iowa)", "Heritage Berkshire or Duroc pork"],
+    iconicDish: "Iowa breaded pork tenderloin sandwich on a plain hamburger bun with yellow mustard and dill pickles",
+    substitutionRule: "When heritage pork is unavailable, use conventional pork loin but brine for two hours longer to compensate for lower fat content; when Maytag blue is unavailable, substitute Gorgonzola dolce or another young, creamy American blue."
+  },
+  {
+    id: "heartland-missouri-river-corridor",
+    name: "Missouri River Corridor",
+    megaregionId: "heartland",
+    boundsDescription: "The Missouri River valley from Kansas City northeast through St. Joseph and the Loess Hills to the Iowa border, plus the Ozark Plateau fringe where German wine country meets Appalachian-inflected foodways.",
+    culture: "A collision zone of Southern Upland, German immigrant, and Great Plains cattle-drive cultures; Kansas City became the convergence point for Texas cattle, Southern Black pit masters, and German butchers, producing a barbecue tradition that synthesized all three.",
+    terroir: "Loess hills of exceptional fertility along the river; limestone-underlain Ozark plateau supporting oak and hickory forest essential to the barbecue economy; a climate at the knife's edge between humid continental and humid subtropical that allows both corn and cotton to grow within the same state.",
+    deviation: "Kansas City barbecue is ideologically distinct from all other American regional barbecue in its insistence on burnt ends as the premier cut — what pitmasters elsewhere discard as over-cooked is here the most coveted bite, concentrating smoke, fat, and bark into something closer to candy than meat. The German wine colonies along the Missouri River (Hermann, Augusta) produce Norton and Concord-based wines that taste nothing like European wine and make no apology for it. Kansas City's Black community developed a sauce tradition (thick, sweet, tomato-and-molasses based) that is now globally synonymous with American barbecue, obscuring its specific authorship. The combination of a large cattle industry and the legacy of the stockyards means beef knowledge here is granular — butchers distinguish between regional steer genetics in ways that coastal chefs rarely consider.",
+    heirloomIngredients: ["Hickory and applewood smoke (Missouri-grown)", "Kansas City burnt ends (brisket point)", "Missouri Norton grape"],
+    iconicDish: "Kansas City burnt ends on white bread with dill pickle chips and KC-style molasses-tomato sauce",
+    substitutionRule: "When brisket point is unavailable, substitute pork belly smoked to similar bark development; when Missouri hickory is unavailable, use a blend of oak and apple wood to approximate the flavor profile."
+  },
+  {
+    id: "heartland-illinois-river-bottom",
+    name: "Illinois River Bottom",
+    megaregionId: "heartland",
+    boundsDescription: "The Illinois River valley from Starved Rock State Park south through Peoria and Havana to the confluence with the Mississippi, encompassing the floodplain bottomlands, backwater lakes, and loess bluffs.",
+    culture: "A working-class river culture combining French Creole remnants from the colonial period, German and Irish canal-worker descendants, and a strong fishing and hunting tradition sustained by the Illinois River's extraordinary wildlife productivity.",
+    terroir: "Alluvial floodplain soils of exceptional depth; the Illinois River system supports one of the continent's most productive freshwater fisheries, with catfish, carp, buffalo fish, and paddlefish still harvested commercially; corn and soybean agriculture dominates the uplands.",
+    deviation: "The Illinois River bottom sustains a freshwater fishing culture that feels more like the Mississippi Delta than the Midwest — carp and buffalo fish are smoked and eaten without apology, paddlefish roe is processed as a domestic caviar substitute, and catfish fries function as the same community-bonding ritual that the Friday fish fry performs elsewhere. Peoria's distilling history (the city was once the rye whiskey capital of the world before Prohibition) left a ghost in the local food culture: whiskey-braised meats, barrel-aged hot sauces, and a comfort with long fermentation times that other Midwestern communities lack. The French colonial layer surfaces in unexpected places — a frenchified meat pie called tourtière persists in river towns, and the word 'prairie' is used to describe a cooking technique (prairie fire shot, prairie oysters) in ways that suggest a longer memory than the region is usually credited with.",
+    heirloomIngredients: ["Illinois River catfish", "Paddlefish roe", "Rye whiskey (Peoria heritage distillate)"],
+    iconicDish: "Beer-battered Illinois River catfish with hush puppies and rye-whiskey tartar sauce",
+    substitutionRule: "When Illinois River catfish is unavailable, substitute channel catfish from any domestic aquaculture source; when paddlefish roe is unavailable, use domestic hackleback or shovelnose sturgeon roe."
+  },
+  {
+    id: "heartland-indiana-ohio-amish-belt",
+    name: "Indiana / Ohio Amish Belt",
+    megaregionId: "heartland",
+    boundsDescription: "The northern Indiana counties of Elkhart, LaGrange, and Shipshewana extending east through Holmes and Wayne counties in Ohio, constituting the largest Amish population concentration in the world.",
+    culture: "Old Order and New Order Amish communities practicing a cuisine of deliberate simplicity, radical seasonality, and communal labor — church-district meals cooked for hundreds in rotation, barn-raising food as engineering, and the rejection of processed ingredients as a moral position.",
+    terroir: "Fertile glacial till plain with excellent drainage; the religious prohibition on chemical inputs in traditional Amish farming produces heirloom vegetable and grain varieties largely absent from commercial agriculture; draft-horse cultivation maintains soil structure lost elsewhere to heavy machinery.",
+    deviation: "Amish cooking operates on a fundamentally different time scale than any other American regional cuisine — noodles are rolled by hand from farm-fresh eggs, bread is leavened with maintained starters passed through generations, and lard from the family hog is the cooking fat for everything savory. The community meal tradition produces a cuisine optimized for mass feeding without industrial equipment: roast chicken, mashed potatoes, dressing, and creamed celery can be prepared for five hundred people using wood-fired ranges and human labor alone. Shooofly pie divides into wet-bottom and dry-bottom factions with regional loyalty as fierce as any barbecue debate. The Amish produce economy (bulk cheese, butter, noodles, dried beans) functions as a parallel food supply chain that bypasses conventional grocery distribution entirely.",
+    heirloomIngredients: ["Amish egg noodles (hand-rolled, farm-fresh eggs)", "Creamed celery (Amish church-meal style)", "Shooofly pie molasses filling"],
+    iconicDish: "Amish roast chicken with hand-rolled egg noodles, mashed potatoes, and creamed celery",
+    substitutionRule: "When Amish egg noodles are unavailable, substitute fresh pasta made with a 3:1 yolk-to-whole-egg ratio to approximate the richness; when creamed celery is absent, blanch celery in salted butter with a splash of heavy cream reduced to coating consistency."
+  },
+  {
+    id: "heartland-detroit-rust-belt",
+    name: "Detroit / Rust Belt",
+    megaregionId: "heartland",
+    boundsDescription: "Metro Detroit and the industrial corridor extending through Flint, Saginaw, and the Thumb to Toledo, Ohio, encompassing the automotive manufacturing zone and its satellite communities.",
+    culture: "The Great Migration brought hundreds of thousands of Black Southerners from Alabama, Georgia, and Mississippi who transformed Detroit's food culture; layered over a base of Polish, Hungarian, and Middle Eastern (especially Lebanese and Yemeni) immigrant communities concentrated in Dearborn and Hamtramck.",
+    terroir: "Flat lakeplain between Lakes Erie and Huron; clay-heavy soils and industrial legacy create an urban food culture more dependent on market networks than local agriculture, but a remarkable density of community gardens in post-industrial vacant lots has rebuilt localized food production since the 2000s.",
+    deviation: "Detroit's food identity is defined by collision rather than synthesis — Alabama-style soul food, Lebanese shawarma, Polish pierogi, and Yemeni lamb stew occupy the same city blocks and sometimes the same menus without fully merging, which gives the city's eating culture an exciting unresolved tension. Detroit-style pizza (rectangular, baked in steel automotive parts trays, with cheese pressed to the edge to caramelize against the pan) was an industrial accident that became a national template, but the original Buddy's recipe remains the benchmark. Coney Island hot dogs split into two irreconcilable factions (American Coney Island vs. Lafayette Coney Island, separated by fifteen feet and fifty years of rivalry) over whether the chili-sauce should use beef heart or ground beef. The Arab American community in Dearborn operates the most authentic and affordable Middle Eastern food corridor outside the Middle East itself.",
+    heirloomIngredients: ["Detroit-style square pizza dough (high-hydration, steel-pan fermented)", "Lafayette/American Coney chili sauce (beef-heart base)", "Dearborn Lebanese pita (same-day baked)"],
+    iconicDish: "Detroit-style square pizza with Wisconsin brick cheese caramelized edge crust and stripe-applied marinara",
+    substitutionRule: "When Wisconsin brick cheese is unavailable, blend mozzarella and mild white cheddar in a 2:1 ratio to approximate the fat content and melt behavior; when a steel Detroit pan is unavailable, use a cast-iron skillet pre-heated in the oven to replicate edge caramelization."
+  }
+];
